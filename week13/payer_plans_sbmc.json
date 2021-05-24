@@ -1,0 +1,146 @@
+{
+    "ADMINISTRATIVE CONCEPTS PPO": {
+        "payer": "Administrative Concepts",
+        "payer_plan": "PPO"
+    },
+    "AETNA COMMERCIAL": {
+        "payer": "Aetna",
+        "payer_plan": "Commercial"
+    },
+    "AETNA HMO": {
+        "payer": "Aetna",
+        "payer_plan": "HMO"
+    },
+    "AETNA MEDICARE ADVANTAGE": {
+        "payer": "Aetna",
+        "payer_plan": "Medicare Advantage"
+    },
+    "AETNA PPO": {
+        "payer": "Aetna",
+        "payer_plan": "PPO"
+    },
+    "ALLEGIANCE BENEFIT PLAN MANAGEMENT COMMERCIAL": {
+        "payer": "Allegiance Benefit Plan Management",
+        "payer_plan": "Commercial"
+    },
+    "ALLIED BENEFIT SYSTEM COMMERCIAL": {
+        "payer": "Allied Benefit System",
+        "payer_plan": "Commercial"
+    },
+    "ALLWELL COMMERCIAL": {
+        "payer": "Allwell",
+        "payer_plan": "Commercial"
+    },
+    "ALLWELL MANAGED MEDICAID": {
+        "payer": "Allwell",
+        "payer_plan": "Managed Medicaid"
+    },
+    "ALLWELL MEDICARE ADVANTAGE": {
+        "payer": "Allwell",
+        "payer_plan": "Medicare Advantage"
+    },
+    "AMBETTER COMMERCIAL": {
+        "payer": "Ambetter",
+        "payer_plan": "Commercial"
+    },
+    "AMBETTER MANAGED MEDICAID": {
+        "payer": "Ambetter",
+        "payer_plan": "Managed Medicaid"
+    },
+    "AMBETTER MEDICARE ADVANTAGE": {
+        "payer": "Ambetter",
+        "payer_plan": "Medicare Advantage"
+    },
+    "BENEFIT ADMINISTRATIVE SYSTEMS COMMERCIAL": {
+        "payer": "Benefit Administrative Systems",
+        "payer_plan": "Commercial"
+    },
+    "BENESYS, INC. COMMERCIAL": {
+        "payer": "Benesys Inc.",
+        "payer_plan": "Commercial"
+    },
+    "BLUE ADVANTAGE PPO": {
+        "payer": "ABCBS",
+        "payer_plan": "Blue Advantage PPO"
+    },
+    "BLUECROSS BLUESHIELD COMMERCIAL": {
+        "payer": "ABCBS",
+        "payer_plan": "Commercial"
+    },
+    "BLUECROSS BLUESHIELD MEDICARE ADVANTAGE": {
+        "payer": "ABCBS",
+        "payer_plan": "Medicare Advantage"
+    },
+    "CIGNA COMMERCIAL": {
+        "payer": "Cigna",
+        "payer_plan": "Commercial"
+    },
+    "CONNECTICUT GENERAL LIFE INSURANCE COMPANY COMMERCIAL": {
+        "payer": "Connecticut General Life Insurance Co.",
+        "payer_plan": "Commercial"
+    },
+    "HARMONY HEALTH PLAN MEDICARE ADVANTAGE": {
+        "payer": "Harmonay Health Plan",
+        "payer_plan": "Medicare Advantage"
+    },
+    "HEALTH ADVANTAGE MEDICARE ADVANTAGE": {
+        "payer": "Health Advantage",
+        "payer_plan": "Medicare Advantage"
+    },
+    "HUMANA MEDICARE ADVANTAGE": {
+        "payer": "Humana",
+        "payer_plan": "Medicare Advantage"
+    },
+    "MEDPAY COMMERCIAL": {
+        "payer": "Medpay",
+        "payer_plan": "Commercial"
+    },
+    "MERITAIN HEALTH COMMERCIAL": {
+        "payer": "Meritain Health",
+        "payer_plan": "Commercial"
+    },
+    "MUNICIPAL COMMERCIAL": {
+        "payer": "Municipal",
+        "payer_plan": "Commercial"
+    },
+    "num_Cash_Discount": {
+        "payer": "Unspecified",
+        "payer_plan": "Cash"
+    },
+    "PLANNED ADMINISTRATORS INC COMMERCIAL": {
+        "payer": "Planned Administrators Inc",
+        "payer_plan": "Commercial"
+    },
+    "QUALCHOICE COMMERCIAL": {
+        "payer": "Qualchoice",
+        "payer_plan": "Commercial"
+    },
+    "TRUSTMARK HEALTH BENEFITS COMMERCIAL": {
+        "payer": "Trustmark Health Benefits",
+        "payer_plan": "Commercial"
+    },
+    "Trustmark Health Benefits COMMERCIAL": {
+        "payer": "Trustmark Health Benefits",
+        "payer_plan": "Commercial"
+    },
+    "UMR COMMERCIAL": {
+        "payer": "UMR",
+        "payer_plan": "Commercial"
+    },
+    "UMR Preferred Provider Organization (PPO)": {
+        "payer": "UMR",
+        "payer_plan": "PPO"
+    },
+    "UNITED HEALTHCARE COMMERCIAL": {
+        "payer": "United Healthcare",
+        "payer_plan": "Commercial"
+    },
+    "UNITED HEALTHCARE MEDICARE ADVANTAGE": {
+        "payer": "United Healthcare",
+        "payer_plan": "Medicare Advantage"
+    },
+    "WELLFLEET COMMERCIAL": {
+        "payer": "Wellfleet",
+        "payer_plan": "Commercial"
+    }
+}
