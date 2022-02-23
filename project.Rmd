@@ -1,0 +1,349 @@
+---
+title: "Project"
+author: "Majd Hamed"
+date: "11/17/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+I have decided to make a few changes to the project requirements. It will now be individually based with no presentation requirement as this will provide us another class period to learn additional material.
+
+Now that everyone has some experience with R and statistical testing, I would like each of you to think of one or more research questions that you would like to address. Most of the tests we have seen thus far involve comparing two groups on some outcome so you may want to think along those lines. Examples include comparing COVID-19 deaths between two of your favorite states across some period of time or examining medical cost by smoker status. These are only suggestions though. Please identify your own questions.
+
+After identifying one or more questions, you should find some data to help address your questions. For example, data on COVID-19 can be found in many places including here: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data, and some data on medical costs and smoker status can be found here: https://www.kaggle.com/mirichoi0218/insurance. Google should allow you to find something useful. If you are having difficulty finding a dataset, you could change your questions to focus on something you did find during your searching.
+
+Once you have your questions and data, you should author an RMarkdown report detailing your questions, your analyses (both descriptivee and likely inferential), and your conclusions.
+
+The report will be due on 2020-12-02 at 09:00 PM.
+
+
+Link: https://www.kaggle.com/sulianova/cardiovascular-disease-dataset 
+
+
+Data Description:
+Measurements
+Age(days) converted to years Age(days)/365=years
+Gender: 1-women 2-men
+Weight(kg)
+systolic blood pressure-ap_hi
+diastolic blood pressure-ap_lo
+cholesterol 1:normal, 2:above normal, 3:well above normal
+gluc: 1: normal, 2:above normal, 3:well above normal
+Smoke-> smoke whether patients smokes or not (0 or 1)
+alco->Alcohol intake: (0 or 1)
+active->physically active(0 or 1)
+Presence of absence of cardiovascular disease -> cardio (0 or 1)
+
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(readr)
+library(kableExtra)
+
+
+
+
+cardio<-read_delim('cardio_train.csv',";")
+cardio
+
+
+
+BMI<-cardio%>%mutate(body_mass_index=weight/(height/100)^2)
+BMI
+
+gender_BMI<-BMI%>%mutate(gender=recode_factor(gender,'1'="female",'2'="male"))
+
+age_gender_BMI<-gender_BMI%>% mutate(age=age/365)   
+age_gender_BMI
+
+mean(age_gender_BMI$age) #53.33936
+mean(age_gender_BMI$height) #164.3592
+mean(age_gender_BMI$weight)#74.20569
+mean(age_gender_BMI$ap_hi)#128.8173
+mean(age_gender_BMI$ap_lo)#96.63041
+mean(age_gender_BMI$body_mass_index)#27.55651
+
+
+sd(age_gender_BMI$age) #6.759594
+sd(age_gender_BMI$height) #8.210126
+sd(age_gender_BMI$weight )#14.39576
+sd(age_gender_BMI$ap_hi) #154.0114
+sd(age_gender_BMI$ap_lo) #188.4725
+sd(age_gender_BMI$body_mass_index) #6.091511
+
+
+median(age_gender_BMI$age) #53.98082
+median(age_gender_BMI$height) #165
+median(age_gender_BMI$weight )#72
+median(age_gender_BMI$ap_hi) #120
+median(age_gender_BMI$ap_lo) #80
+median(age_gender_BMI$body_mass_index) #26.37407
+
+```
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(readr)
+library(kableExtra)
+
+BMI<-cardio%>%mutate(body_mass_index=weight/(height/100)^2)
+BMI
+
+gender_BMI<-BMI%>%mutate(gender=recode_factor(gender,'1'="female",'2'="male"))
+gender_BMI
+
+age_gender_BMI<-gender_BMI%>% mutate(age=age/365)   
+age_gender_BMI
+
+
+genderTotal<-table(age_gender_BMI$gender)
+genderTotal
+#female   male 
+# 45530  24470 
+
+
+#Cholesterol
+chol_table<-table(age_gender_BMI$gender,age_gender_BMI$cholesterol)
+colnames(chol_table)<-c("Normal","Above Normal", "Way Above Normal")
+names(dimnames(chol_table)) <- c("Sex", "Cholesterol")
+chol_table
+
+#Glucose
+gluc_table<-table(age_gender_BMI$gender,age_gender_BMI$gluc)
+colnames(gluc_table)<-c("Normal","Above Normal", "Way Above Normal")
+names(dimnames(gluc_table)) <- c("Sex", "Glucose")
+gluc_table
+
+#Smoking
+smoke_table<-table(age_gender_BMI$gender,age_gender_BMI$smoke)
+colnames(smoke_table)<-c("Smoker","Nonsmoker")
+names(dimnames(smoke_table))<- c("Sex", "Smoking")
+smoke_table
+
+#Alcohol Consumption 
+alco_table<-table(age_gender_BMI$gender,age_gender_BMI$alco)
+colnames(alco_table)<-c("Drinks","Doesn't Drink")
+names(dimnames(alco_table))<- c("Sex", "Alcohol Consumption")
+alco_table
+
+#Active
+active_table<-table(age_gender_BMI$gender,age_gender_BMI$active)
+colnames(active_table)<-c("Active","Not Active")
+names(dimnames(active_table))<- c("Sex", "Active")
+active_table
+
+#Presence of and absence of cardiovascular disease
+disease_table<-table(age_gender_BMI$gender,age_gender_BMI$cardio)
+colnames(disease_table)<-c("Present","Absent")
+names(dimnames(disease_table))<- c("Sex", "Cardiovascular Disease")
+disease_table
+
+
+```
+Age and Systolic blood pressure
+
+
+Research has shown that age and systolic blood pressure have a correlation. "The increase in blood pressure with age is mostly associated with structural changes in the arteries and especially with large artery stiffness.In the elderly, the most powerful predictor of risk is increased pulse pressure due to decreased diastolic and increased systolic blood pressure".(https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2805932/). A correlation test will show how strong the correlation is between age and for systolic blood pressure. Is age proportionate to systolic blood pressure. 
+
+Ho: µ of age ≠µ of ap_hi(systolic blood pressure)
+ 
+Ha:µ of age = µ of ap_hi(systolic blood pressure)
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(readr)
+library(kableExtra)
+
+age_gender_BMI<-gender_BMI%>% mutate(age=age/365)   
+age_gender_BMI
+
+mean(age_gender_BMI$age) #53.33936
+mean(age_gender_BMI$ap_hi)#128.8173
+
+sd(age_gender_BMI$age)#6.759594
+sd(age_gender_BMI$ap_hi)#154.0114
+sd(age_gender_BMI$age)-sd(age_gender_BMI$ap_hi)#-147.2518
+
+median(age_gender_BMI$age) #53.98082
+median(age_gender_BMI$ap_hi) #120
+
+ggplot(age_gender_BMI,aes(x=age, y=ap_hi, color=gender))+geom_col()+facet_grid(.~gender)
+
+
+t.test(age_gender_BMI$age,age_gender_BMI$ap_hi, paired=T)
+
+cor.test(age_gender_BMI$age,age_gender_BMI$ap_hi)
+wilcox.test(age_gender_BMI$age,age_gender_BMI$ap_hi, paired = TRUE)
+
+
+#Reject null Hypothesis.The pvalue(2.2e-16) < alpha(.05)
+#Since we reject null, this means that age does have an influence on systolic blood pressure Mean difference is 75.47793, sd=147.2518, t(69999)=-129.66,p-value < 2.2e-16. A Pearson correlation test t(69998)=5.4948,p-value = 3.924e-08, r=0.02076432. This means their is a weak correlation between age systolic blood pressure.
+
+```
+Weight and BMI
+
+Weight is used to calculate body mass index. "Large weight gains may also be associated with increased mortality, although only among people who have already reached Class II obesity or above (BMI > 35)"(https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2903861/). A correlation test will be performed to see how weight influences on body mass index. Does the mean of the weight proportionate to BMI?
+
+Ho:µ of Weight = µ of BMI
+
+Ha:µ of Weight ≠ µ of BMI
+
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(readr)
+library(kableExtra)
+
+age_gender_BMI<-gender_BMI%>% mutate(age=age/365)   
+age_gender_BMI
+
+mean(age_gender_BMI$weight)#74.20569
+mean(age_gender_BMI$body_mass_index)#27.55651
+
+sd(age_gender_BMI$weight)#14.39576
+sd(age_gender_BMI$body_mass_index)#6.091511
+sd(age_gender_BMI$weight)-sd(age_gender_BMI$body_mass_index) #8.304246
+
+median(age_gender_BMI$weight )#72
+median(age_gender_BMI$body_mass_index) #26.37407
+
+
+
+ggplot(age_gender_BMI,aes(x=weight, y=body_mass_index, color=gender))+geom_point()+geom_smooth(method = "lm", se = FALSE, color="black")
+
+t.test(age_gender_BMI$weight,age_gender_BMI$body_mass_index, paired=T)
+
+cor.test(age_gender_BMI$weight,age_gender_BMI$body_mass_index,method="pearson")
+
+
+#Reject null Hypothesis.The pvalue(2.2e-16) < alpha(.05)
+#Since we reject null, this means that we accept the alternative hypothesis that µ of weight is not proportionate to the µ of BMI. Mean difference is 46.64918, Sd=8.304246, t(69999)=1173.1,p-value < 2.2e-16
+#A Pearson's rank correlation test was computed to assess the relationship between weight and body mass index. The test suggested a positive relationship between the two variables,t(6998)=311.33,p-value = 2.2e-16, cor=0.7620086 . It appears that as weight goes up so does body mass index and vice versa.
+```
+Age and Cardiovascular Disease
+
+Cardiovascular disease is common for people. "Adults age 65 and older are more likely than younger people to suffer from cardiovascular disease, which is problems with the heart, blood vessels, or both. Aging can cause changes in the heart and blood vessels that may increase a person's risk of developing cardiovascular disease"(https://www.nia.nih.gov/health/heart-health-and-aging#:~:text=Adults%20age%2065%20and%20older,risk%20of%20developing%20cardiovascular%20disease.) What is the correlation for age and cardiovascular disease.  Does age have an impact on cardiovasicular disease?
+
+Ha:Increase in age increases chances of Cardiovascular disease
+
+Ho:Age will not have any chances causeing cardiovascular disease. 
+
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(readr)
+library(kableExtra)
+
+ 
+age_gender_BMI
+
+disease_table<-table(age_gender_BMI$gender,age_gender_BMI$cardio)
+colnames(disease_table)<-c("Present","Absent")
+names(dimnames(disease_table))<- c("Sex", "Cardiovascular Disease")
+disease_table
+
+mean(age_gender_BMI$cardio)#0.4997
+mean(age_gender_BMI$age)#53.33936
+
+sd(age_gender_BMI$age)-sd(age_gender_BMI$cardio)#6.25959
+
+ggplot(age_gender_BMI,aes(x=age, y=cardio, color=gender))+geom_col()+facet_grid(.~gender)
+
+t.test(age_gender_BMI$age,age_gender_BMI$cardio, alternative = "greater",paired=T)
+
+cor.test(age_gender_BMI$weight,age_gender_BMI$body_mass_index,method="pearson")
+
+#Reject the null hypothesis because the alpha is greater than the pvalue alpha(0.05)>pvalue(2.2e-16)
+#Since we failed to reject null hypothesis. The alternative hypothesis is accepted.Mean difference is 52.83966, Sd=6.25959, t(69999)=2099.7,p-value < 2.2e-16.A Pearson correlation test t(6998)=311.33,p-value = 2.2e-16, cor=0.7620086 . This means their is a strong correlation when age increases does cardiovascular disease.  
+
+
+
+
+
+```
+Smoke and Active
+
+People stay active to stay in shape or reduce stress. Others rely on smoking to also reduce stres. "It has been shown that smoking interferes negatively with metabolism, and smokers are less likely to be physically active. It has also been shown that men who smoke actually consume 350 to 575 more calories per day than nonsmokers"(https://my.clevelandclinic.org/health/articles/10643-smoking-and-physical-activity#:~:text=It%20has%20been%20shown%20that,calories%20per%20day%20than%20nonsmokers.).What is the correlation between the two. Does smoking influence how mych a person is active?
+
+Ho:µ of smoking = µ of activity(People who do smoke are active)
+
+Ha:µ of smoking ≠ µ of activity(People who do smoke are not active)
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(readr)
+library(kableExtra)
+ 
+age_gender_BMI
+
+#Smoking
+smoke_table<-table(age_gender_BMI$gender,age_gender_BMI$smoke)
+colnames(smoke_table)<-c("Smoker","Nonsmoker")
+names(dimnames(smoke_table))<- c("Sex", "Smoking")
+smoke_table
+
+#Active
+active_table<-table(age_gender_BMI$gender,age_gender_BMI$active)
+colnames(active_table)<-c("Active","Not Active")
+names(dimnames(active_table))<- c("Sex", "Active")
+active_table
+
+
+sd(age_gender_BMI$smoke)-sd(age_gender_BMI$active)#-0.1136952
+
+ggplot(age_gender_BMI,aes(x=smoke,y=active, color=gender))+geom_col()+facet_grid(.~gender)
+
+t.test(age_gender_BMI$smoke,age_gender_BMI$active, paired=T)
+
+cor.test(age_gender_BMI$smoke,age_gender_BMI$active)
+
+#Reject the null hypothesis. The alpha is greater than pvalue. 
+# We accept the the alternative hypothesis. Mean difference is 0.7156, sd=-0.1136952, t(69999)=-392.83,p-value < 2.2e-16. This means that people who do smoke are not active. A pearson's test shows that t(6998)=311.33,p-value = 7.788e-12, cor=0.02585797. This means that their is weak  correlation for people who smoke and being active.
+
+
+
+```
+
+
+
+
